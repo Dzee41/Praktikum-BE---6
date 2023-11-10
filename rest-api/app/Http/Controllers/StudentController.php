@@ -31,11 +31,32 @@ class StudentController extends Controller
         $student = Student::create($input);
 
         $data = [
-            'message' => 'Student is created',
+            'message' => 'Data Student is created',
             'data' => $student       
         ];
 
         return response()->json($data, 201);
+    }
+
+    public function show($id)
+    {
+        $student = Student::find($id);
+
+        if ($student) {
+            $data = [
+                'message' => 'Get detail student',
+                'data' => $student
+            ];
+
+            return response() -> json($data, 200);
+        }
+
+        else {
+            $data = [
+                'message' => 'Data student not  found',
+            ];
+        }
+        return response() -> json($data,404);
     }
 
     public function update(Request $request, $id)
@@ -59,13 +80,13 @@ class StudentController extends Controller
         }
         else {
             $data = [
-                'message' => 'student not found',
+                'message' => 'Data student not found',
             ];
             return response() ->json($data, 404);
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $student = Student::find($id);
 
@@ -73,14 +94,14 @@ class StudentController extends Controller
             $student->delete();
 
             $data = [
-                'message' => 'Student is deleted'
+                'message' => 'Data Student is deleted'
             ];
 
             return response()->json($data,200);
         }
         else {
             $data = [
-                'message' => 'student not found'
+                'message' => 'Data student not found'
             ];
             return response()->json($data, 404);
         }
